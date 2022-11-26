@@ -51,7 +51,7 @@ def get_player_name():
     return name
 
 
-# ---------------------------- SELECT RULES OR PLAY GAME ----------------------------
+# ---------------------------- SELECT RULES OR PLAY GAME --------------------------
 def rules_option():
     """
     Creating an input, giving user 2 options to display rules or play game with a yes or no answer.
@@ -79,12 +79,7 @@ def rules_option():
             print("Game starts now..")
             print("")
             print("------------------------------------------------------")
-            # Calling function to display when player say no. (come back to fix this)
-            display_grid(HIDDEN_GRID)
-            # Calling function to display when player say no. (come back to fix this)
-            players_shot = get_player_shots()
-            continue
-
+            
         else:
             print("Please enter 'yes' or 'no'\n")
             continue
@@ -123,8 +118,20 @@ def display_grid(grid):
         row_num += 1
 
 
-# ---------------------------- USERS INPUT ----------------------------
+# ---------------------------- HITS & MISSES ----------------------------
+def ships(grid):
+    """
+    Creating a function that will let the computer randomly place 5 ships on the grid.
+    Using a for loop so computer will place 5 ships on the grid, between the numbers 0,4 (1-5 on grid).
+    """
+    for ship in range(5):
+        ship_row, ship_column = randint(0,4), randint(0,4)
+        while grid[ship_row][ship_column] == "X":
+            ship_row, ship_column = players_shot()
+        grid[ship_row][ship_column] = "X"
 
+
+# ---------------------------- PLAYERS INPUT ----------------------------
 def get_player_shots():
     """
     Creating a function with an input to get user to choose where they want to aim their shot.
@@ -135,21 +142,19 @@ def get_player_shots():
     """
     column = input("Enter a column(A-E) to aim your shot:\n").upper()
     # Error message if player doesn't write correct input for columns
-    while column not in "ABCDEFGH":
+    while column not in "ABCDE":
         print("Please enter A, B, C, D or E)")
         column = input("Enter a column to aim your shot:\n").upper()
 
     row = input("Enter a row(1-5) to aim your shot:\n")
     # Error message if player doesn't write correct input for rows
-    while row not in "12345678":
+    while row not in "12345":
         print("Please enter 1, 2, 3, 4 or 5\n")
         row = input("Enter a row(1-5) to aim your shot:\n")
-    return int(row) - 1, letters_to_numbers[column]
-
+    return int(row) - 1, letters_to_num[column]
 
 
 # ---------------------------- MAIN FUNCTION ----------------------------
-
 def main():
     """
     Run all functions data
@@ -158,5 +163,9 @@ def main():
     print(f"Alright {player_name}, let's get started!\n")
 
     rules_answer = rules_option()
+
+    display_grid(HIDDEN_GRID)
+    
+    players_shot = get_player_shots()
 
 main()
