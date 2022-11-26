@@ -1,3 +1,6 @@
+import gspread
+from google.oauth2.service_account import credentials
+
 # ---------------------------- Battleship ----------------------------
 """
 Rules:
@@ -20,4 +23,30 @@ grid =  1   |   |   |   |   |
         4   |   |   |   |   |
         5   |   |   |   |   |
 """
+
+
 # ---------------------------- INTRO ----------------------------
+
+def get_player_name():
+    """
+    Creating an input, asking player for their name.
+    Validates input if it violates certan criterias,
+    if it does then throw an error message and go back to the top.
+    A little help from my mentor to get it started.
+    """
+    while True:
+        name = input("Hello, please enter your name:\n").strip()
+        # Name will contain at least 1 character.
+        if len(name) < 1:
+            print("Please enter name that is at least 1 letter\n")
+            continue
+        
+        # Name will contain only letters.
+        if not name.isalpha():
+            print("Please enter a name that only contains letters\n")
+            continue
+        break
+    return name
+
+player_name = get_player_name()
+print(f"Alright {player_name}, let's get started!\n")
