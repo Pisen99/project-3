@@ -81,6 +81,8 @@ def rules_option():
             print("------------------------------------------------------")
             # Calling function to display when player say no. (come back to fix this)
             display_grid(HIDDEN_GRID)
+            # Calling function to display when player say no. (come back to fix this)
+            players_shot = get_player_shots()
             continue
 
         else:
@@ -119,6 +121,31 @@ def display_grid(grid):
     for row in grid:
         print("%d|%s|" % (row_num, "|".join(row)))
         row_num += 1
+
+
+# ---------------------------- USERS INPUT ----------------------------
+
+def get_player_shots():
+    """
+    Creating a function with an input to get user to choose where they want to aim their shot.
+    I created 2 while statments explaining how to enter correct input,
+    and throw an error if it's not valid.
+    Returning whole numbers and letters to numbers.
+    A little help from code institute's tutor (jason) to get it going properly.
+    """
+    column = input("Enter a column(A-E) to aim your shot:\n").upper()
+    # Error message if player doesn't write correct input for columns
+    while column not in "ABCDEFGH":
+        print("Please enter A, B, C, D or E)")
+        column = input("Enter a column to aim your shot:\n").upper()
+
+    row = input("Enter a row(1-5) to aim your shot:\n")
+    # Error message if player doesn't write correct input for rows
+    while row not in "12345678":
+        print("Please enter 1, 2, 3, 4 or 5\n")
+        row = input("Enter a row(1-5) to aim your shot:\n")
+    return int(row) - 1, letters_to_numbers[column]
+
 
 
 # ---------------------------- MAIN FUNCTION ----------------------------
