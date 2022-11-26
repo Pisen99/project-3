@@ -1,5 +1,7 @@
 import gspread
 from google.oauth2.service_account import credentials
+from random import randint
+
 
 # ---------------------------- Battleship ----------------------------
 """
@@ -77,6 +79,8 @@ def rules_option():
             print("Game starts now..")
             print("")
             print("------------------------------------------------------")
+            # Calling function to display when player say no. (come back to fix this)
+            display_grid(HIDDEN_GRID)
             continue
 
         else:
@@ -84,6 +88,37 @@ def rules_option():
             continue
         break
     return rules
+
+
+# ---------------------------- BUILDING THE GRID ----------------------------
+"""
+This part of the code is inspired from https://www.youtube.com/watch?v=tF1WRCrd_HQ
+"""
+# Grid to set ships placement
+HIDDEN_GRID = [[" "] * 5 for x in range(5)]
+# Grid to show players shot and missed shots
+GUESS_GRID = [[" "] * 5 for i in range(5)]
+
+letters_to_num = {
+    "A": 0,
+    "B": 1,
+    "C": 2,
+    "D": 3,
+    "E": 4
+}
+
+def display_grid(grid):
+    """
+    Creating a function to display the grid.
+    Converted letters to numbers in code above,
+    since this function is using numbers to count and not letters.
+    """
+    print("  A B C D E")
+    row_num = 1
+    # Looping through our list row_num.
+    for row in grid:
+        print("%d|%s|" % (row_num, "|".join(row)))
+        row_num += 1
 
 
 # ---------------------------- MAIN FUNCTION ----------------------------
