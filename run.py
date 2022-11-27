@@ -116,7 +116,7 @@ letters_to_num = {
     "E": 4
 }
 
-# ---------------------------- HITS & MISSES ----------------------------
+# ---------------------------- SHIPS ON GRID ----------------------------
 def ships_from_comp(grid):
     """
     Creating a function that will let the computer randomly place 5 ships on the grid.
@@ -151,6 +151,21 @@ def get_player_shots():
         print("Please enter 1, 2, 3, 4 or 5\n")
         row = input("Enter a row(1-5) to aim your shot:\n")
     return int(row) - 1, letters_to_num[column]
+
+
+# ---------------------------- ROUNDS & HITS/MISSED SHOTS ----------------------------
+def count_shots(grid):
+    """
+    Creating a function that will keep the count for how many ships that got shot down.
+    Using a loop and if statement to increment score when row/column hits X.
+    When all ships been shot down it end game (creating another function below to end it when this one hits 5.).
+    """
+    count = 0
+    for row in grid:
+        for column in row:
+            if column == "X":
+                count += 1
+    return count
 
 
 # ---------------------------- MAIN FUNCTION ----------------------------
