@@ -150,13 +150,21 @@ def get_player_shots():
     column = input("Enter a column(A-E) to aim your shot:\n").upper()
     # Error message if player doesn't write correct input for columns
     while column not in "ABCDE":
+        print("------------------------------------------------------")
+        print("")
         print("Please enter A, B, C, D or E)")
+        print("")
+        print("------------------------------------------------------")
         column = input("Enter a column to aim your shot:\n").upper()
 
     row = input("Enter a row(1-5) to aim your shot:\n")
     # Error message if player doesn't write correct input for rows
     while row not in "12345":
+        print("------------------------------------------------------")
+        print("")
         print("Please enter 1, 2, 3, 4 or 5\n")
+        print("")
+        print("------------------------------------------------------")
         row = input("Enter a row(1-5) to aim your shot:\n")
     return int(row) - 1, letters_to_num[column]
 
@@ -187,28 +195,48 @@ while total_shots > 0:
 
     # If player guess the same row/column again this print will show
     if GUESS_GRID[row][column] == "O":
+        print("------------------------------------------------------")
+        print("")
         print("You already tried to aim here")
+        print("")
+        print("------------------------------------------------------")
 
     # If player hits a ship, X will show on the grid
     # When player hits a ship it will count the score down of total shots
     elif HIDDEN_GRID[row][column] == "X":
+        print("------------------------------------------------------")
+        print("")
         print("You shot down a ship, good job soldier!")
+        print("")
+        print("------------------------------------------------------")
         GUESS_GRID[row][column] = "X"
         total_shots -= 1
 
     # If player missed a ship, O will show in the grid
     # When player miss a ship it will count the score down of total shots
     else:
+        print("------------------------------------------------------")
+        print("")
         print("You failed to shoot down a ship, don't give up!")
+        print("")
+        print("------------------------------------------------------")
         GUESS_GRID[row][column] = "O"
         total_shots -= 1
     # Here we stop the game once Player shoots down all ships
     if count_shots(GUESS_GRID) == 5:
+        print("------------------------------------------------------")
+        print("")
         print("Wihoo, you succeded the mission and won!")
+        print("")
+        print("------------------------------------------------------")
         break
     # When player runs out of shots, game will end.
     if total_shots == 0:
+        print("------------------------------------------------------")
+        print("")
         print("Oh no, you failed the mission and lost!")
+        print("")
+        print("------------------------------------------------------")
 
 
 # ---------------------------- MAIN FUNCTION ----------------------------
@@ -217,7 +245,11 @@ def main():
     Run all functions data
     """
     player_name = get_player_name()
+    print("------------------------------------------------------")
+    print("")
     print(f"Alright {player_name}, let's get started!\n")
+    print("")
+    print("------------------------------------------------------")
 
     rules_option()
 
