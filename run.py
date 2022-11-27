@@ -1,5 +1,3 @@
-import gspread
-from google.oauth2.service_account import credentials
 from random import randint
 
 
@@ -41,7 +39,7 @@ def get_player_name():
         if len(name) < 1:
             print("Please enter name that is at least 1 letter\n")
             continue
-        
+
         # Name will contain only letters.
         if not name.isalpha():
             print("Please enter a name that only contains letters\n")
@@ -50,13 +48,16 @@ def get_player_name():
     return name
 
 
-# ---------------------------- SELECT RULES OR PLAY GAME --------------------------
+# ---------------------------- SELECT RULES OR PLAY GAME ---------------------
 def rules_option():
     """
-    Creating an input, giving user 2 options to display rules or play game with a yes or no answer.
-    Validates input if it violates certan criterias. (answer must be 'yes' or 'no'),
+    Creating an input giving user 2 options to display rules or play game with
+    a yes or no answer.
+    Validates input if it violates certan criterias, answer must be
+    'yes' or 'no'.
     if it does, throw an error message and go back to the top.
-    Some basic styling to 'print' to make it easier for user to read in the terminal.
+    Some basic styling to 'print' to make it easier for user to read the
+    terminal.
     """
     while True:
         rules = input("Would you like to display the rules? please enter 'yes' or 'no'\n").strip()
@@ -66,7 +67,7 @@ def rules_option():
             print("")
             print("Rules:\n1. Contains a 5x5 grid with 5 ships randomly placed in the grid.\n2. Player will have 10 bullets to hit the ships.\n3. Player would choose a row & a column (1-5 & A-E) to aim their shot.\n4. Every missed or hit ship will show in the grid.\n5. Player wins if they shot all ships down before running out of bullets, or else you will lose.")
             print("")
-            print("Game Symbols:\n"  " = Empty space\n- = Missed shot\nX = Ship's been shot.")
+            print("Game Symbols:\n' ' = Empty space\n- = Missed shot\nX = Ship's been shot.")
             print("")
             print("------------------------------------------------------")
             continue
@@ -78,7 +79,7 @@ def rules_option():
             print("Game starts now..")
             print("")
             print("------------------------------------------------------")
-            
+
         else:
             print("Please enter 'yes' or 'no'\n")
             continue
@@ -88,12 +89,14 @@ def rules_option():
 
 # ---------------------------- BUILDING THE GRID ----------------------------
 """
-This part of the code is inspired from https://www.youtube.com/watch?v=tF1WRCrd_HQ
+This part of the code is inspired from
+https://www.youtube.com/watch?v=tF1WRCrd_HQ
 """
 # Grid to set ships placement
 HIDDEN_GRID = [[" "] * 5 for x in range(5)]
 # Grid to show players shot and missed shots
 GUESS_GRID = [[" "] * 5 for i in range(5)]
+
 
 def display_grid(grid):
     """
@@ -108,6 +111,7 @@ def display_grid(grid):
         print("%d|%s|" % (row_num, "|".join(row)))
         row_num += 1
 
+
 letters_to_num = {
     "A": 0,
     "B": 1,
@@ -116,15 +120,18 @@ letters_to_num = {
     "E": 4
 }
 
+
 # ---------------------------- SHIPS ON GRID ----------------------------
 def ships_from_comp(grid):
     """
-    Creating a function that will let the computer randomly place 5 ships on the grid.
-    Using a for loop so computer will place 5 ships on the grid, between the numbers 0,4 (1-5 on grid).
+    Creating a function that will let the computer randomly place 5 ships
+    on the grid.
+    Using a for loop so computer will place 5 ships on the grid,
+    between the numbers 0,4 (1-5 on grid).
     """
     for ship in range(5):
-        ship_row, ship_column = randint(0,4), randint(0,4)
-        
+        ship_row, ship_column = randint(0, 4), randint(0, 4)
+
         while grid[ship_row][ship_column] == "X":
             ship_row, ship_column = get_player_shots()
         grid[ship_row][ship_column] = "X"
@@ -133,7 +140,8 @@ def ships_from_comp(grid):
 # ---------------------------- PLAYERS INPUT ----------------------------
 def get_player_shots():
     """
-    Creating a function with an input to get user to choose where they want to aim their shot.
+    Creating a function with an input to get user to choose where they want to
+    aim their shot.
     I created 2 while statments explaining how to enter correct input,
     and throw an error if it's not valid.
     Returning whole numbers and letters to numbers.
@@ -153,12 +161,14 @@ def get_player_shots():
     return int(row) - 1, letters_to_num[column]
 
 
-# ---------------------------- ROUNDS & HITS/MISSED SHOTS ----------------------------
+# ---------------------------- ROUNDS & HITS/MISSED SHOTS --------------------
 def count_shots(grid):
     """
-    Creating a function that will keep the count for how many ships that got shot down.
+    Creating a function that will keep the count for how many ships that got
+    shot down.
     Using a loop and if statement to increment score when row/column hits X.
-    When all ships been shot down it end game (creating another function below to end it when this one hits 5.).
+    When all ships been shot down it end game,
+    (creating another function below to end it when this one hits 5.).
     """
     count = 0
     for row in grid:
@@ -166,6 +176,7 @@ def count_shots(grid):
             if column == "X":
                 count += 1
     return count
+
 
 # Max score of how many shots players can use before game ends.
 total_shots = 10
@@ -175,21 +186,21 @@ while total_shots > 0:
     row, column = get_player_shots()
 
     # If player guess the same row/column again this print will show
-    if GUESS_GRID[row] [column] == "O":
+    if GUESS_GRID[row][column] == "O":
         print("You already tried to aim here")
-    
+
     # If player hits a ship, X will show on the grid
     # When player hits a ship it will count the score down of total shots
-    elif HIDDEN_GRID[row] [column] == "X":
+    elif HIDDEN_GRID[row][column] == "X":
         print("You shot down a ship, good job soldier!")
-        GUESS_GRID[row] [column] = "X"
+        GUESS_GRID[row][column] = "X"
         total_shots -= 1
 
     # If player missed a ship, O will show in the grid
     # When player miss a ship it will count the score down of total shots
     else:
         print("You failed to shoot down a ship, don't give up!")
-        GUESS_GRID[row] [column] = "O"
+        GUESS_GRID[row][column] = "O"
         total_shots -= 1
     # Here we stop the game once Player shoots down all ships
     if count_shots(GUESS_GRID) == 5:
@@ -213,4 +224,6 @@ def main():
     ships_from_comp(HIDDEN_GRID)
     display_grid(HIDDEN_GRID)
     get_player_shots()
+
+
 main()
