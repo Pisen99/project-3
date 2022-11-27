@@ -167,6 +167,38 @@ def count_shots(grid):
                 count += 1
     return count
 
+# Max score of how many shots players can use before game ends.
+total_shots = 10
+# Starting with no shots shot when before player enters their first shot.
+while total_shots > 0:
+    display_grid(GUESS_GRID)
+    row, column = get_player_shots()
+
+    # If player guess the same row/column again this print will show
+    if GUESS_GRID[row] [column] == "O":
+        print("You already tried to aim here")
+    
+    # If player hits a ship, X will show on the grid
+    # When player hits a ship it will count the score down of total shots
+    elif HIDDEN_GRID[row] [column] == "X":
+        print("You shot down a ship, good job soldier!")
+        GUESS_GRID[row] [column] = "X"
+        total_shots -= 1
+
+    # If player missed a ship, O will show in the grid
+    # When player miss a ship it will count the score down of total shots
+    else:
+        print("You failed to shoot down a ship, don't give up!")
+        GUESS_GRID[row] [column] = "O"
+        total_shots -= 1
+    # Here we stop the game once Player shoots down all ships
+    if count_shots(GUESS_GRID) == 5:
+        print("Wihoo, you succeded the mission and won!")
+        break
+    # When player runs out of shots, game will end.
+    if total_shots == 0:
+        print("Oh no, you failed the mission and lost!")
+
 
 # ---------------------------- MAIN FUNCTION ----------------------------
 def main():
