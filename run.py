@@ -28,7 +28,6 @@ grid =  1   |   |   |   |   |
 
 
 # ---------------------------- INTRO ----------------------------
-
 def get_player_name():
     """
     Creating an input, asking player for their name.
@@ -96,14 +95,6 @@ HIDDEN_GRID = [[" "] * 5 for x in range(5)]
 # Grid to show players shot and missed shots
 GUESS_GRID = [[" "] * 5 for i in range(5)]
 
-letters_to_num = {
-    "A": 0,
-    "B": 1,
-    "C": 2,
-    "D": 3,
-    "E": 4
-}
-
 def display_grid(grid):
     """
     Creating a function to display the grid.
@@ -117,17 +108,25 @@ def display_grid(grid):
         print("%d|%s|" % (row_num, "|".join(row)))
         row_num += 1
 
+letters_to_num = {
+    "A": 0,
+    "B": 1,
+    "C": 2,
+    "D": 3,
+    "E": 4
+}
 
 # ---------------------------- HITS & MISSES ----------------------------
-def ships(grid):
+def ships_from_comp(grid):
     """
     Creating a function that will let the computer randomly place 5 ships on the grid.
     Using a for loop so computer will place 5 ships on the grid, between the numbers 0,4 (1-5 on grid).
     """
     for ship in range(5):
         ship_row, ship_column = randint(0,4), randint(0,4)
+        
         while grid[ship_row][ship_column] == "X":
-            ship_row, ship_column = players_shot()
+            ship_row, ship_column = get_player_shots()
         grid[ship_row][ship_column] = "X"
 
 
@@ -162,10 +161,9 @@ def main():
     player_name = get_player_name()
     print(f"Alright {player_name}, let's get started!\n")
 
-    rules_answer = rules_option()
+    rules_option()
 
+    ships_from_comp(HIDDEN_GRID)
     display_grid(HIDDEN_GRID)
-    
-    players_shot = get_player_shots()
-
+    get_player_shots()
 main()
