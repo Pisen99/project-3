@@ -21,6 +21,26 @@ grid =  1   |   |   |   |   |
         5   |   |   |   |   |
 """
 
+# ---------------------------- VARIABLES ETC, THE BASE FOR GAME ----------------------------
+"""
+This part of the code is inspired from
+https://www.youtube.com/watch?v=tF1WRCrd_HQ
+"""
+# Grid to set ships placement
+HIDDEN_GRID = [[" "] * 5 for x in range(5)]
+# Grid to show players shot and missed shots
+GUESS_GRID = [[" "] * 5 for i in range(5)]
+
+
+letters_to_num = {
+    "A": 0,
+    "B": 1,
+    "C": 2,
+    "D": 3,
+    "E": 4
+}
+
+
 # ---------------------------- INTRO ----------------------------
 def get_player_name():
     """
@@ -30,7 +50,7 @@ def get_player_name():
     A little help from my mentor to get it started.
     """
     while True:
-        name = input("Hello, please enter your name:\n").strip()
+        name = input("Hello, please enter your name:\n").strip().lower()
         # Name will contain at least 1 character.
         if len(name) < 1:
             print("Please enter name that is at least 1 letter\n")
@@ -55,7 +75,7 @@ def rules_option():
     terminal.
     """
     while True:
-        rules = input("Would you like to display the rules? please enter 'yes' or 'no'\n").strip()
+        rules = input("Would you like to display the rules? please enter 'yes' or 'no'\n").strip().lower()
         # Rules will display if player enter "yes".
         if rules == 'yes':
             print("------------------------------------------------------")
@@ -82,16 +102,12 @@ def rules_option():
     return rules
 
 
-# ---------------------------- BUILDING THE GRID ----------------------------
+# ---------------------------- SELECT RULES OR PLAY GAME ---------------------
+
 """
 This part of the code is inspired from
 https://www.youtube.com/watch?v=tF1WRCrd_HQ
 """
-# Grid to set ships placement
-HIDDEN_GRID = [[" "] * 5 for x in range(5)]
-# Grid to show players shot and missed shots
-GUESS_GRID = [[" "] * 5 for i in range(5)]
-
 
 def display_grid(grid):
     """
@@ -105,15 +121,6 @@ def display_grid(grid):
     for row in grid:
         print("%d|%s|" % (row_num, "|".join(row)))
         row_num += 1
-
-
-letters_to_num = {
-    "A": 0,
-    "B": 1,
-    "C": 2,
-    "D": 3,
-    "E": 4
-}
 
 
 # ---------------------------- SHIPS ON GRID ----------------------------
@@ -141,7 +148,7 @@ def get_player_shots():
     Returning whole numbers and letters to numbers.
     A little help from code institute's tutor (jason) to get it going properly.
     """
-    column = input("Enter a column(A-E) to aim your shot:\n").upper()
+    column = input("Enter a column(A-E) to aim your shot:\n").strip().upper()
     # Error message if player doesn't write correct input for columns
     while column not in "ABCDE":
         print("------------------------------------------------------")
@@ -149,7 +156,7 @@ def get_player_shots():
         print("Please enter A, B, C, D or E)")
         print("")
         print("------------------------------------------------------")
-        column = input("Enter a column to aim your shot:\n").upper()
+        column = input("Enter a column to aim your shot:\n").strip().upper()
 
     row = input("Enter a row(1-5) to aim your shot:\n").strip()
     # Error message if player doesn't write correct input for rows
@@ -180,61 +187,61 @@ def count_shots(grid):
     return count
 
 
-# Max score of how many shots players can use before game ends.
-ships_from_comp(HIDDEN_GRID)
-total_shots = 10
+def run_game():
+    # Max score of how many shots players can use before game ends.
+    total_shots = 10
 
-# Starting with no shots shot when before player enters their first shot.
-while total_shots > 0:
-    display_grid(GUESS_GRID)
-    row, column = get_player_shots()
+    # Starting with no shots shot before player enters their first shot.
+    while total_shots > 0:
+        display_grid(GUESS_GRID)
+        row, column = get_player_shots()
 
-    # If player guess the same row/column again this print will show
-    if GUESS_GRID[row][column] == "O":
-        print("------------------------------------------------------")
-        print("")
-        print("You already tried to aim here")
-        print("")
-        print("------------------------------------------------------")
+        # If player guess the same row/column again this print will show
+        if GUESS_GRID[row][column] == "O":
+            print("------------------------------------------------------")
+            print("")
+            print("You already tried to aim here")
+            print("")
+            print("------------------------------------------------------")
 
-    # If player hits a ship, X will show on the grid
-    # When player hits a ship it will count the score down of total shots
-    elif HIDDEN_GRID[row][column] == "X":
-        print("------------------------------------------------------")
-        print("")
-        print("You shot down a ship, good job soldier!")
-        print("")
-        print("------------------------------------------------------")
-        GUESS_GRID[row][column] = "X"
-        total_shots -= 1
+        # If player hits a ship, X will show on the grid
+        # When player hits a ship it will count the score down of total shots
+        elif HIDDEN_GRID[row][column] == "X":
+            print("------------------------------------------------------")
+            print("")
+            print("You shot down a ship, good job soldier!")
+            print("")
+            print("------------------------------------------------------")
+            GUESS_GRID[row][column] = "X"
+            total_shots -= 1
 
-    # If player missed a ship, O will show in the grid
-    # When player miss a ship it will count the score down of total shots
-    else:
-        print("------------------------------------------------------")
-        print("")
-        print("You failed to shoot down a ship, don't give up!")
-        print("")
-        print("------------------------------------------------------")
-        GUESS_GRID[row][column] = "O"
-        total_shots -= 1
+        # If player missed a ship, O will show in the grid
+        # When player miss a ship it will count the score down of total shots
+        else:
+            print("------------------------------------------------------")
+            print("")
+            print("You failed to shoot down a ship, don't give up!")
+            print("")
+            print("------------------------------------------------------")
+            GUESS_GRID[row][column] = "O"
+            total_shots -= 1
 
-    # Here we stop the game once Player shoots down all ships
-    if count_shots(GUESS_GRID) == 5:
-        print("------------------------------------------------------")
-        print("")
-        print("Wihoo, you succeded the mission and won!")
-        print("")
-        print("------------------------------------------------------")
-        break
+        # Here we stop the game once Player shoots down all ships
+        if count_shots(GUESS_GRID) == 5:
+            print("------------------------------------------------------")
+            print("")
+            print("Wihoo, you succeded the mission and won!")
+            print("")
+            print("------------------------------------------------------")
+            break
 
-    # When player runs out of shots, game will end.
-    if total_shots == 0:
-        print("------------------------------------------------------")
-        print("")
-        print("Oh no, you failed the mission and lost!")
-        print("")
-        print("------------------------------------------------------")
+        # When player runs out of shots, game will end.
+        if total_shots == 0:
+            print("------------------------------------------------------")
+            print("")
+            print("Oh no, you failed the mission and lost!")
+            print("")
+            print("------------------------------------------------------")
 
 # ---------------------------- MAIN FUNCTION ----------------------------
 def main():
@@ -251,8 +258,10 @@ def main():
     rules_option()
 
     ships_from_comp(HIDDEN_GRID)
+
+    run_game()
+
     display_grid(HIDDEN_GRID)
-    get_player_shots()
 
 
 main()
