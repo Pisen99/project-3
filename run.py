@@ -99,7 +99,6 @@ def rules_option():
             print("Please enter 'yes' or 'no'\n")
             continue
         break
-    return rules
 
 
 # ---------------------------- SELECT RULES OR PLAY GAME ---------------------
@@ -191,7 +190,8 @@ def run_game():
     # Max score of how many shots players can use before game ends.
     total_shots = 10
 
-    # Starting with no shots shot before player enters their first shot.
+    # Starting with no shots shot
+    # before player enters their first shot.
     while total_shots > 0:
         display_grid(GUESS_GRID)
         row, column = get_player_shots()
@@ -262,6 +262,9 @@ def main():
     run_game()
 
     display_grid(HIDDEN_GRID)
+
+    print("\nSolution vivible above\n")
+    print(f"\nThank you for playing, see you next time {player_name}")
 
 
 main()
