@@ -302,8 +302,10 @@ def main():
 
     display_grid(HIDDEN_GRID)
 
-    print("\nSolution vivible above\n")
+    print("\nSolution above\n")
     print(f"\nThank you for playing, see you next time {player_name}!")
+    print("If you wish to play again press the orange button outside",
+    " of the terminal 'run program'")
 
 
 main()
