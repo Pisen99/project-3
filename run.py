@@ -1,31 +1,12 @@
 from random import randint
 
-# ---------------------------- Battleship ----------------------------
-"""
-Rules:
-1. Contains a 5x5 grid with 5 ships randomly placed in the grid.
-2. Player will have 10 bullets to hit the ships.
-3. Player would choose a row & a column (1-5 & A-E) to aim their shot.
-4. Every missed or hit ship will show in the grid.
-5. Player wins if they shot all ships down before running out of bullets,
-   or else you will lose.
-Game Symbols:
-" " = Empty space
-- = Missed shot
-X = Ship's been shot.
-          A   B   C   D   E
-grid =  1   |   |   |   |   |
-        2   |   |   |   |   |
-        3   |   |   |   |   |
-        4   |   |   |   |   |
-        5   |   |   |   |   |
-"""
 
-# ---------------------------- VARIABLES ETC, THE BASE FOR GAME ----------------------------
+# ---------------------------- VARIABLES ETC, THE BASE FOR GAME ---------------------------
 """
 This part of the code is inspired from
 https://www.youtube.com/watch?v=tF1WRCrd_HQ
 """
+
 # Grid to set ships placement
 HIDDEN_GRID = [[" "] * 5 for x in range(5)]
 # Grid to show players shot and missed shots
@@ -134,6 +115,8 @@ def rules_option():
 This part of the code is inspired from
 https://www.youtube.com/watch?v=tF1WRCrd_HQ
 """
+
+
 def display_grid(grid):
     """
     Creating a function to display the grid.

@@ -93,6 +93,9 @@ Language used,
 
 
 ## Testing
+When running my code in [CI Python Linter](https://pep8ci.herokuapp.com/) these are the problems showing up. Code is working perfectly even though these problems are still there.
+* ![screenshot](Images.readme/result1.png)
+* ![screenshot](Images.readme/result2.png)
 
 ## Problems along the programming:
 ### f1 Functions order
