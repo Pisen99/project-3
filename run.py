@@ -102,9 +102,15 @@ def rules_option():
         if rules == 'yes':
             print("------------------------------------------------------")
             print("")
-            print("Rules:\n1. Contains a 5x5 grid with 5 ships randomly placed in the grid.\n2. Player will have 10 bullets to hit the ships.\n3. Player would choose a row & a column (1-5 & A-E) to aim their shot.\n4. Every missed or hit ship will show in the grid.\n5. Player wins if they shot all ships down before running out of bullets, or else you will lose.")
+            print("Rules:\n1. Contains a 5x5 grid with 5 ships randomly placed",
+            " in the grid.\n2. Player will have 10 bullets to hit the ships.",
+            " \n3. Player would choose a row & a column (1-5 & A-E) to aim",
+            " their shot.\n4. Every missed or hit ship will show in the grid.",
+            " \n5. Player wins if they shot all ships down before running",
+            " out of bullets,\n or else you will lose.")
             print("")
-            print("Game Symbols:\n' ' = Empty space\n- = Missed shot\nX = Ship's been shot.")
+            print("Game Symbols:\n' ' = Empty space",
+            "\n- = Missed shot\nX = Ship's been shot.")
             print("")
             print("------------------------------------------------------")
             continue
@@ -124,12 +130,10 @@ def rules_option():
 
 
 # ---------------------------- SELECT RULES OR PLAY GAME ---------------------
-
 """
 This part of the code is inspired from
 https://www.youtube.com/watch?v=tF1WRCrd_HQ
 """
-
 def display_grid(grid):
     """
     Creating a function to display the grid.
