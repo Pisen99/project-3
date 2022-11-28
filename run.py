@@ -43,11 +43,24 @@ letters_to_num = {
 
 # ---------------------------- INTRO ----------------------------
 def get_player_name():
-    """
-    Creating an input, asking player for their name.
-    Validates input if it violates certan criterias,
-    if it does then throw an error message and go back to the top.
+    """Creating a function to collect players name.
     A little help from my mentor to get it started.
+
+    input:
+    - Using strip() to remove any spaces in the beginning/end of players input
+    - Using lower() to convert players input to lowercase letters
+
+    while loop:
+    - Checking if player's input is at least 1 character,
+    if not throw an error message
+    - checking if player's input only contains letters,
+    if not throw an error message
+
+    Args input str:
+    To collect players name
+
+    Return:
+    Players input (name)
     """
     while True:
         name = input("Hello, please enter your name:\n").strip().lower()
@@ -65,13 +78,22 @@ def get_player_name():
 
 # ---------------------------- SELECT RULES OR PLAY GAME ---------------------
 def rules_option():
-    """
-    Creating an input giving user 2 options to display rules or play game with
-    a yes or no answer.
-    Validates input if it violates certan criterias, answer must be
-    'yes' or 'no'.
-    if it does, throw an error message and go back to the top.
-    Some basic styling to 'print' to make it easier for user to read the
+    """Creating a function giving player 2 options, play or show rules.
+
+    input:
+    - Using strip() to remove any spaces in the beginning/end of players input
+    - Using lower() to convert players input to lowercase letters
+
+    while loop:
+    - If player answers yes, display rules with a print statement
+    - If player answers no, start the game.
+    - Checking if player's input is yes or no, if not throw an error message
+
+    Args input str:
+    To collect players input for 2 different options
+
+    other:
+    Some basic styling to 'print' to make it easier for player to read the
     terminal.
     """
     while True:
@@ -111,8 +133,9 @@ https://www.youtube.com/watch?v=tF1WRCrd_HQ
 def display_grid(grid):
     """
     Creating a function to display the grid.
-    Converted letters to numbers in code above,
+    Converted letters to numbers in code above (line 35),
     since this function is using numbers to count and not letters.
+    Using a for loop so the letters in print will show at the top of the grid.
     """
     print("  A B C D E")
     row_num = 1
@@ -175,7 +198,7 @@ def count_shots(grid):
     Creating a function that will keep the count for how many ships that got
     shot down.
     Using a loop and if statement to increment score when row/column hits X.
-    When all ships been shot down it end game,
+    When all ships been shot down it will end game,
     (creating another function below to end it when this one hits 5.).
     """
     count = 0
@@ -187,11 +210,22 @@ def count_shots(grid):
 
 
 def run_game():
+    """Created a function with a while loop to display players guesses and
+    to count the amount of rounds they have left.
+    A little help from my mentor to get it going.
+
+    print:
+    - Using print to explain to player what's going on
+    - Throwing error messages if they already guessed that row/column.
+    - Message will show if they hit or miss.
+
+    While loop:
+    - To collect users guesses and keep the rounds updated when they play.
+    """
     # Max score of how many shots players can use before game ends.
     total_shots = 10
 
-    # Starting with no shots shot
-    # before player enters their first shot.
+    # Starting with no shots shot before player enters their first guess.
     while total_shots > 0:
         display_grid(GUESS_GRID)
         row, column = get_player_shots()
@@ -243,6 +277,7 @@ def run_game():
             print("")
             print("------------------------------------------------------")
 
+
 # ---------------------------- MAIN FUNCTION ----------------------------
 def main():
     """
@@ -264,7 +299,7 @@ def main():
     display_grid(HIDDEN_GRID)
 
     print("\nSolution vivible above\n")
-    print(f"\nThank you for playing, see you next time {player_name}")
+    print(f"\nThank you for playing, see you next time {player_name}!")
 
 
 main()
