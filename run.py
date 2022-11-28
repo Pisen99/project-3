@@ -1,6 +1,5 @@
 from random import randint
 
-
 # ---------------------------- Battleship ----------------------------
 """
 Rules:
@@ -10,12 +9,10 @@ Rules:
 4. Every missed or hit ship will show in the grid.
 5. Player wins if they shot all ships down before running out of bullets,
    or else you will lose.
-
 Game Symbols:
 " " = Empty space
 - = Missed shot
 X = Ship's been shot.
-
           A   B   C   D   E
 grid =  1   |   |   |   |   |
         2   |   |   |   |   |
@@ -23,7 +20,6 @@ grid =  1   |   |   |   |   |
         4   |   |   |   |   |
         5   |   |   |   |   |
 """
-
 
 # ---------------------------- INTRO ----------------------------
 def get_player_name():
@@ -39,7 +35,6 @@ def get_player_name():
         if len(name) < 1:
             print("Please enter name that is at least 1 letter\n")
             continue
-
         # Name will contain only letters.
         if not name.isalpha():
             print("Please enter a name that only contains letters\n")
@@ -130,8 +125,7 @@ def ships_from_comp(grid):
     between the numbers 0,4 (1-5 on grid).
     """
     for ship in range(5):
-        ship_row, ship_column = randint(0, 4), randint(0, 4)
-
+        ship_row, ship_column = randint(0,4), randint(0,4)
         while grid[ship_row][ship_column] == "X":
             ship_row, ship_column = get_player_shots()
         grid[ship_row][ship_column] = "X"
@@ -157,7 +151,7 @@ def get_player_shots():
         print("------------------------------------------------------")
         column = input("Enter a column to aim your shot:\n").upper()
 
-    row = input("Enter a row(1-5) to aim your shot:\n")
+    row = input("Enter a row(1-5) to aim your shot:\n").strip()
     # Error message if player doesn't write correct input for rows
     while row not in "12345":
         print("------------------------------------------------------")
@@ -165,7 +159,7 @@ def get_player_shots():
         print("Please enter 1, 2, 3, 4 or 5\n")
         print("")
         print("------------------------------------------------------")
-        row = input("Enter a row(1-5) to aim your shot:\n")
+        row = input("Enter a row(1-5) to aim your shot:\n").strip()
     return int(row) - 1, letters_to_num[column]
 
 
@@ -187,7 +181,9 @@ def count_shots(grid):
 
 
 # Max score of how many shots players can use before game ends.
+ships_from_comp(HIDDEN_GRID)
 total_shots = 10
+
 # Starting with no shots shot when before player enters their first shot.
 while total_shots > 0:
     display_grid(GUESS_GRID)
@@ -222,6 +218,7 @@ while total_shots > 0:
         print("------------------------------------------------------")
         GUESS_GRID[row][column] = "O"
         total_shots -= 1
+
     # Here we stop the game once Player shoots down all ships
     if count_shots(GUESS_GRID) == 5:
         print("------------------------------------------------------")
@@ -230,6 +227,7 @@ while total_shots > 0:
         print("")
         print("------------------------------------------------------")
         break
+
     # When player runs out of shots, game will end.
     if total_shots == 0:
         print("------------------------------------------------------")
@@ -237,7 +235,6 @@ while total_shots > 0:
         print("Oh no, you failed the mission and lost!")
         print("")
         print("------------------------------------------------------")
-
 
 # ---------------------------- MAIN FUNCTION ----------------------------
 def main():
